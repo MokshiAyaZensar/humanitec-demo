@@ -1,3 +1,4 @@
-git add Dockerfile
-git commit -m "Add Dockerfile for Nginx"
-git push
+.DS_Store
+__pycache__/
+*.pyc
+.env
