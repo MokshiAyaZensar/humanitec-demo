@@ -19,9 +19,5 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
                 "env_id": "dev",
-                "artifacts": {
-                  "app": {
-                    "image": "registry.humanitec.io/public/sample-app"
-                  }
-                }
+                "comment": "Triggering deployment from GitHub Actions"
               }'
