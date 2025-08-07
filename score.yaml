@@ -1,0 +1,11 @@
+apiVersion: score.dev/v1b1
+metadata:
+  name: html-demo
+resources:
+  static-site:
+    type: s3
+containers:
+  html-container:
+    image: nginx
+    variables:
+      BUCKET_NAME: ${resources.static-site.bucket}
