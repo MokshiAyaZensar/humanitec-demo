@@ -1,23 +1,27 @@
-name: Deploy HTML to Humanitec
- 
+name: Deploy to Humanitec
+
 on:
   push:
     branches:
       - main
- 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
- 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
- 
-      - name: Upload HTML to Humanitec
-        uses: humanitec/humanitec-action@v1
-        with:
-          token: ${{ secrets.HUMANITEC_TOKEN }}
-          org: your-org-name
-          app: html-demo
-          env: dev
-          artifact: ./index.html
+        uses: actions/checkout@v3
+
+      - name: Deploy to Humanitec
+        run: |
+          curl -X POST https://api.humanitec.io/orgs/zensar/apps/html-demo/deploys \
+          -H "Authorization: Bearer ${{ secrets.HUMANITEC_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "env_id": "dev",
+                "artifacts": {
+                  "app": {
+                    "image": "registry.humanitec.io/public/sample-app"
+                  }
+                }
+              }'
