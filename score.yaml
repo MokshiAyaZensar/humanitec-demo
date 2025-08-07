@@ -4,8 +4,3 @@ metadata:
 resources:
   static-site:
     type: s3
-containers:
-  html-container:
-    image: nginx
-    variables:
-      BUCKET_NAME: ${resources.static-site.bucket}
