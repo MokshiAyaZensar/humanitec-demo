@@ -1,0 +1,23 @@
+name: Deploy HTML to Humanitec
+ 
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+ 
+      - name: Upload HTML to Humanitec
+        uses: humanitec/humanitec-action@v1
+        with:
+          token: ${{ secrets.HUMANITEC_TOKEN }}
+          org: your-org-name
+          app: html-demo
+          env: dev
+          artifact: ./index.html
