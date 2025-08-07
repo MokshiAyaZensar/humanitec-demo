@@ -22,6 +22,6 @@ jobs:
                     "id": "developer"
                   }
                 },
-                "comment": "Deploying HTML to AWS S3 via Humanitec"
+                "comment": "Re Deploying HTML to AWS S3 via Humanitec "
               }'
 
