@@ -19,6 +19,7 @@ jobs:
           COMPASS_SITE: zensar-mokshi.atlassian.net
           COMPONENT_ID: 0b40dd47-7a0b-4714-a481-ec6df5bffe95
           COMPASS_EMAIL: mokshi.aya@zensar.com
+          DEPLOYMENT_URL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         run: |
           curl -X POST "https://${COMPASS_SITE}/gateway/api/compass/v1/events" \
             -u "${COMPASS_EMAIL}:${COMPASS_API_TOKEN}" \
@@ -31,6 +32,7 @@ jobs:
                   "environment": "production",
                   "state": "successful",
                   "displayName": "Deployed from GitHub Actions",
+                  "url": "'"${DEPLOYMENT_URL}"'",
                   "startedAt": "'"$(date --utc +%Y-%m-%dT%H:%M:%SZ)"'",
                   "finishedAt": "'"$(date --utc +%Y-%m-%dT%H:%M:%SZ)"'"
                 }
