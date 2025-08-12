@@ -17,11 +17,12 @@ jobs:
       - name: Report deployment to Compass
         env:
           COMPASS_API_TOKEN: ${{ secrets.COMPASS_API_TOKEN }}
-          COMPASS_SITE: zensar-mokshi.atlassian.net        # change to your Compass site
-          COMPONENT_ID: 0b40dd47-7a0b-4714-a481-ec6df5bffe95             # change to your Compass component ID
+          COMPASS_SITE: zensar-mokshi.atlassian.net
+          COMPONENT_ID: 0b40dd47-7a0b-4714-a481-ec6df5bffe95
+          COMPASS_EMAIL: mokshi.aya@zensar.com    # <-- YOUR Atlassian email!
         run: |
-          curl -X POST "https://zensar-mokshi.atlassian.net/gateway/api/compass/v1/events" \
-            -H "Authorization: Basic $(echo ":$COMPASS_API_TOKEN" | base64)" \
+          curl -X POST "https://${COMPASS_SITE}/gateway/api/compass/v1/events" \
+            -u "${COMPASS_EMAIL}:${COMPASS_API_TOKEN}" \
             -H "Content-Type: application/json" \
             -d '{
               "event": {
