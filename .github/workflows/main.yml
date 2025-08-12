@@ -6,11 +6,32 @@ on:
       - master
 
 jobs:
-  build:
+  build-and-report:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy (placeholder)
-        run: echo "Deploy step goes here."
+      # Add your build/test steps here
+
+      - name: Report deployment to Compass
+        env:
+          COMPASS_API_TOKEN: ${{ secrets.COMPASS_API_TOKEN }}
+          COMPASS_SITE: yoursite.atlassian.net        # change to your Compass site
+          COMPONENT_ID: your-component-id             # change to your Compass component ID
+        run: |
+          curl -X POST "https://${COMPASS_SITE}/gateway/api/compass/v1/events" \
+            -H "Authorization: Basic $(echo ":$COMPASS_API_TOKEN" | base64)" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "event": {
+                "eventType": "deployment",
+                "componentId": "'"${COMPONENT_ID}"'",
+                "deployment": {
+                  "environment": "production",
+                  "state": "successful",
+                  "startedAt": "'"$(date --utc +%Y-%m-%dT%H:%M:%SZ)"'",
+                  "finishedAt": "'"$(date --utc +%Y-%m-%dT%H:%M:%SZ)"'"
+                }
+              }
+            }'
